@@ -34,6 +34,11 @@
             <div class="card-header">
                 <h2 class="text-center">Registration</h2>
             </div>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    You have successfully registered in this app!
+                </div>
+            </div>
             <div class="card-body">
                 <form
                     method="post"
