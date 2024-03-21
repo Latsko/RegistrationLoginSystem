@@ -40,9 +40,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public List<UserDto> findAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(this::mapToUserDto)
+                .toList();
+    }
+
     private Role checkIfRoleExists() {
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
+    }
+
+    private UserDto mapToUserDto(User user) {
+        String[] fullName = user.getName().split(" ");
+        return new UserDto(
+                user.getId(),
+                fullName[0],
+                fullName[1],
+                user.getEmail(),
+                user.getPassword());
     }
 }
